@@ -1,4 +1,16 @@
-﻿
+﻿# コンソールからSVG画像を作成する自分用の改造です。
+
+## バッチファイル
+
+```
+@echo off
+MyShogi.exe "ln1g2s+Rl/1r1sk1+P2/p1pppp2p/6p2/9/Pp1b5/1PPPPPP1P/1B3S3/LNSGKG1NL b GNP 1" "target.svg"
+python svg2img.py target.svg
+pause
+```
+
+このように使う予定です。
+
 # About this project
 
 MyShogi is an open source GUI for computer Shogi engine.
