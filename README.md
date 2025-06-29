@@ -11,6 +11,26 @@ pause
 
 このように使う予定です。
 
+## プロジェクト設定：GUIからコンソールアプリに変更する
+
+この改造では Program.cs を追加してコマンドラインで動作する機能を実装しているため、Visual Studio のプロジェクト設定を以下のように変更する必要があります。
+
+変更手順（Visual Studio GUI）
+
+MyShogi プロジェクトを右クリック → 「プロパティ（Properties）」を選択
+
+左側の「アプリケーション」を選択
+
+「出力の種類（Output type）」を 「コンソール アプリケーション」 に変更
+
+保存して再ビルド
+
+注意：
+
+デフォルトでは「Windows アプリケーション」になっているため、コンソール画面が表示されません。
+
+出力をコマンドラインで確認したい場合や Console.WriteLine() を使いたい場合は、必ずこの設定変更が必要です。
+
 # About this project
 
 MyShogi is an open source GUI for computer Shogi engine.
