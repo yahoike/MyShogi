@@ -1,25 +1,44 @@
 ﻿using System;
-using System.Windows.Forms;
+using System.IO;
+using MyShogi.Model.Shogi;
+using MyShogi.Model.Shogi.Core;
+using MyShogi.Model.Shogi.Converter.Svg;
+using MyShogi.Model.Shogi.Kifu;
 using MyShogi.App;
+using MyShogi.Model.Common.Utility;
+using MyShogi.Model.Shogi.LocalServer;
+using System.Text;
+using System.Threading;
 
-namespace MyShogi
+class Program
 {
-    static class Program
+    static void Main(string[] args)
     {
-        /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
-        /// </summary>
-        [STAThread]
-        static void Main(string[] args)
+        Initializer.Init();
+        if (args.Length == 0)
         {
-            // モデルの初期化一式
-            Model.Shogi.Core.Initializer.Init();
+            Console.WriteLine("SFENをコマンド引数で指定してください。");
+            return;
+        }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+        try
+        {
+            var pos = new Position();
+            pos.SetSfen(args[0]);
 
-            // singletonなTheAppインスタンスを生成して実行するだけ
-            TheApp.app.Run();
+            var header = new KifuHeader
+            {
+                PlayerNameBlack = "先手",
+                PlayerNameWhite = "後手",
+            };
+
+            var svg = new Svg().ToString(pos, header);
+            var outputPath = args.Length >= 2 ? args[1] : "output.svg";
+            System.IO.File.WriteAllText(outputPath, svg);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
         }
     }
 }
